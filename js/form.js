@@ -18,20 +18,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             request.onsuccess = (event) => {
                 db = event.target.result;
-                console.log('[DB] IndexedDB otwarta pomyślnie.');
                 resolve(db);
             };
 
             request.onupgradeneeded = (event) => {
                 db = event.target.result;
-                console.log('[DB] Aktualizacja IndexedDB lub tworzenie nowej bazy.');
                 if (!db.objectStoreNames.contains(storeName)) {
                     const objectStore = db.createObjectStore(storeName, { keyPath: 'id', autoIncrement: true });
                     objectStore.createIndex('title', 'title', { unique: false });
                     objectStore.createIndex('dueDate', 'dueDate', { unique: false });
                     objectStore.createIndex('priority', 'priority', { unique: false });
                     objectStore.createIndex('completed', 'completed', { unique: false });
-                    console.log(`[DB] Utworzono magazyn obiektów: ${storeName}`);
                 }
             };
         });
@@ -49,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const request = objectStore.add(task);
 
             request.onsuccess = () => {
-                console.log('[DB] Zadanie dodane do IndexedDB:', task);
                 resolve(request.result);
             };
 
@@ -109,14 +105,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         });
-    } else {
-        // console.log("Formularz 'task-form' nie został znaleziony na tej stronie.");
     }
 
     if (typeof showMessage === 'undefined') {
         console.warn('[form.js] Funkcja showMessage nie jest zdefiniowana. Komunikaty mogą nie działać poprawnie.');
         window.showMessage = function(message, type) {
-            console.log(`[Fallback Message] ${type}: ${message}`);
             alert(`${type.toUpperCase()}: ${message}`);
         };
     }

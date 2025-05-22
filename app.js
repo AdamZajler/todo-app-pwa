@@ -9,7 +9,6 @@ function initDB() {
             requestCheck.onsuccess = (event) => {
                 db = event.target.result;
                 if (db) {
-                    console.log('[App.js] Uzyskano dostęp do DB otwartej przez form.js');
                     resolve(db);
                     return;
                 }
@@ -40,13 +39,11 @@ function standardDBHandlers(request, resolve, reject) {
 
     request.onsuccess = (event) => {
         db = event.target.result;
-        console.log('[DB] IndexedDB otwarta pomyślnie.');
         resolve(db);
     };
 
     request.onupgradeneeded = (event) => {
         db = event.target.result;
-        console.log('[DB] Aktualizacja IndexedDB lub tworzenie nowej bazy.');
         if (!db.objectStoreNames.contains(storeName)) {
             const objectStore = db.createObjectStore(storeName, { keyPath: 'id', autoIncrement: true });
             objectStore.createIndex('title', 'title', { unique: false });
@@ -54,7 +51,6 @@ function standardDBHandlers(request, resolve, reject) {
             objectStore.createIndex('priority', 'priority', { unique: false });
             objectStore.createIndex('completed', 'completed', { unique: false });
             objectStore.createIndex('createdAt', 'createdAt', { unique: false });
-            console.log(`[DB] Utworzono magazyn obiektów: ${storeName}`);
         }
     };
 }
@@ -95,7 +91,6 @@ function addTaskToDB(task) {
             const request = objectStore.add(task);
 
             request.onsuccess = () => {
-                console.log('[DB] Zadanie dodane (szybkie dodawanie):', task, 'ID:', request.result);
                 resolve(request.result);
             };
             request.onerror = (event) => {
@@ -119,7 +114,6 @@ function deleteTaskFromDB(taskId) {
             const request = objectStore.delete(taskId);
 
             request.onsuccess = () => {
-                console.log('[DB] Zadanie usunięte z ID:', taskId);
                 resolve();
             };
             request.onerror = (event) => {
@@ -143,7 +137,6 @@ function updateTaskInDB(task) {
             const request = objectStore.put(task);
 
             request.onsuccess = () => {
-                console.log('[DB] Zadanie zaktualizowane:', task);
                 resolve();
             };
             request.onerror = (event) => {
@@ -188,9 +181,8 @@ function showMessage(message, type = 'success') {
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js')
-            .then((registration) => {
-                console.log('[App] Service Worker zarejestrowany pomyślnie:', registration.scope);
+        navigator.serviceWorker.register('/service-worker.js')
+            .then(() => {
                 showMessage('Aplikacja jest gotowa do pracy offline!', 'success');
             })
             .catch((error) => {
@@ -327,7 +319,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                     createdAt: new Date().toISOString()
                 };
                 try {
-                    newTask.id = await addTaskToDB(newTask);
+                    const newId = await addTaskToDB(newTask);
+                    newTask.id = newId;
                     renderTask(newTask);
                     quickTaskInput.value = '';
                     showMessage('Zadanie dodane do listy!', 'success');

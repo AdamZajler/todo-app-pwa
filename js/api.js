@@ -13,7 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof showMessage === 'function') {
             showMessage(message, isError ? 'error' : 'success');
         } else {
-            console.log(`[API Status] ${message}`);
+            // Fallback if showMessage is not available - keep for basic feedback
+            if (isError) {
+                console.error(`[API Status] ${message}`);
+            } else {
+                // console.warn(`[API Status] ${message}`); // Or handle non-error logs differently if needed
+            }
         }
     }
 
@@ -76,7 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const cache = await caches.open(apiCacheName);
             await cache.put(apiUrl, networkResponse);
-            console.log('[API] Dane zapisane w pamięci podręcznej:', apiUrl);
 
             displayData(data);
             updateApiStatus('Dane pomyślnie załadowane z API i zaktualizowane w cache.', false);
