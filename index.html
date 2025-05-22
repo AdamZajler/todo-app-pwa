@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista Zadań PWA</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <header>
+        <h1>Moja Lista Zadań</h1>
+        <nav>
+            <a href="index.html" class="active">Lista</a>
+            <a href="form.html">Dodaj Zadanie</a>
+            <a href="api-data.html">Dane z API</a>
+        </nav>
+    </header>
+    <main>
+        <section id="todo-list-section">
+            <h2>Zadania do zrobienia:</h2>
+            <ul id="todo-list">
+                <li class="placeholder">Brak zadań.</li>
+            </ul>
+        </section>
+
+        <section id="add-task-shortcut" style="display: none;">
+             <h3>Szybkie dodawanie zadania:</h3>
+            <form id="quick-add-form">
+                <input type="text" id="quick-task-input" placeholder="Wpisz treść zadania..." required>
+                <button type="submit">Dodaj szybko</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Adam Zajler</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

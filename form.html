@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dodaj Nowe Zadanie - Lista Zadań PWA</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+<header>
+    <h1>Dodaj Nowe Zadanie</h1>
+    <nav>
+        <a href="index.html">Lista</a>
+        <a href="form.html" class="active">Dodaj Zadanie</a>
+        <a href="api-data.html">Dane z API</a>
+    </nav>
+</header>
+
+<main>
+    <section id="add-task-form-section">
+        <h2>Wypełnij dane zadania:</h2>
+        <form id="task-form">
+            <div>
+                <label for="task-title">Tytuł zadania:</label>
+                <input type="text" id="task-title" name="taskTitle" required>
+            </div>
+            <div>
+                <label for="task-description">Opis (opcjonalnie):</label>
+                <textarea id="task-description" name="taskDescription" rows="4"></textarea>
+            </div>
+            <div>
+                <label for="task-due-date">Termin wykonania (opcjonalnie):</label>
+                <input type="date" id="task-due-date" name="taskDueDate">
+            </div>
+            <div>
+                <label for="task-priority">Priorytet (opcjonalnie):</label>
+                <select id="task-priority" name="taskPriority">
+                    <option value="niski">Niski</option>
+                    <option value="sredni" selected>Średni</option>
+                    <option value="wysoki">Wysoki</option>
+                </select>
+            </div>
+            <button type="submit">Dodaj Zadanie</button>
+        </form>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2025 Adam Zajler</p>
+</footer>
+
+<script src="js/form.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

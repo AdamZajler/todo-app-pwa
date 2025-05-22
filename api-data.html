@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dane z API - Lista Zadań PWA</title>
+    <link rel="stylesheet" href="style.css"> <link rel="manifest" href="manifest.json">
+</head>
+<body>
+<header>
+    <h1>Dane z Zewnętrznego API</h1>
+    <nav>
+        <a href="index.html">Lista</a>
+        <a href="form.html">Dodaj Zadanie</a>
+        <a href="api-data.html" class="active">Dane z API</a>
+    </nav>
+</header>
+
+<main>
+    <div id="message-container"></div>
+
+    <section id="api-content-section">
+        <h2>Przykładowe Zadania (dummyjson.com API)</h2>
+        <div id="api-status">
+            <p>Ładowanie danych...</p>
+        </div>
+        <div id="api-data-container"></div>
+        <button id="fetch-new-data-button">Pobierz Nowe Dane</button>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2025 Adam Zajler</p>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="app.js"></script> </body>
+</html>
