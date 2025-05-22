@@ -188,7 +188,7 @@ function showMessage(message, type = 'success') {
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js')
+        navigator.serviceWorker.register('service-worker.js')
             .then((registration) => {
                 console.log('[App] Service Worker zarejestrowany pomyślnie:', registration.scope);
                 showMessage('Aplikacja jest gotowa do pracy offline!', 'success');
@@ -327,8 +327,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     createdAt: new Date().toISOString()
                 };
                 try {
-                    const newId = await addTaskToDB(newTask);
-                    newTask.id = newId;
+                    newTask.id = await addTaskToDB(newTask);
                     renderTask(newTask);
                     quickTaskInput.value = '';
                     showMessage('Zadanie dodane do listy!', 'success');
